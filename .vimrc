@@ -9,6 +9,7 @@ set nocompatible
 
 
 
+
 """""""""""""""""""""""""""""
 """""""""""""""""""""""""""""
 " 画面表示の設定
@@ -155,26 +156,12 @@ nnoremap :  ;
 vnoremap ;  :
 vnoremap :  ;
 
-nnoremap q  :q!<CR>
+nnoremap q  :q<CR>
 nnoremap wq :wq<CR>
 nnoremap w  :w<CR>
 
 """""""""""""""""""""""""""""""""""""
 " unite.vimの設定
-noremap <C-U><C-F> :Unite -buffer-name=file file<CR> " ファイル一覧
-noremap <C-U><C-R> :Unite file_mru<CR> " 最近使ったファイル一覧
-
-au FileType unite nnoremap <silent> <buffer> <expr> <C-i> unite#do_action('split') " ウィンドウを分割して開く
-au FileType unite inoremap <silent> <buffer> <expr> <C-i> unite#do_action('split')
-
-" ESCキーを2回押すと終了する
-au FileType unite nnoremap <silent> <buffer> <ESC><ESC> q
-au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>q
-
-
-
-
-
 
 
 
@@ -202,6 +189,56 @@ noremap <C-a> <Esc>^a
 
 
 
+
+
+
+
+
+" molokai
+syntax on
+colorscheme molokai
+set t_Co=256
+
+
+" emmet
+autocmd FileType html,css,scss imap <buffer><expr><tab>
+    \ emmet#isExpandable() ? "\<plug>(emmet-expand-abbr)" :
+    \ "\<tab>"))
+
+
+
+
+
+"------------------------------------
+" unite.vim
+"------------------------------------
+" 入力モードで開始する
+let g:unite_enable_start_insert=0
+" バッファ一覧
+noremap <C-U><C-B> :Unite buffer<CR>
+" ファイル一覧
+noremap <C-U><C-F> :UniteWithBufferDir -buffer-name=files file<CR>
+" 最近使ったファイルの一覧
+noremap <C-U><C-R> :Unite file_mru<CR>
+" レジスタ一覧
+noremap <C-U><C-Y> :Unite -buffer-name=register register<CR>
+" ファイルとバッファ
+noremap <C-U><C-U> :Unite buffer file_mru<CR>
+" 全部
+noremap <C-U><C-A> :Unite UniteWithBufferDir -buffer-name=files buffer file_mru bookmark file<CR>
+" ESCキーを2回押すと終了する
+au FileType unite nnoremap <silent> <buffer> <ESC><ESC> :q<CR>
+au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>:q<CR>
+
+
+
+" cakephp用
+" http://d.hatena.ne.jp/kajisuke/20090910/1252571766
+autocmd BufNewFile,BufRead *.ctp set filetype=php
+let php_htmlInStrings=1
+
+" 自動補完機能を有効にする
+let g:neocomplete#enable_at_startup = 1
 
 
 
@@ -245,6 +282,27 @@ NeoBundle 'itchyny/lightline.vim'
 
 " 過去の編集ファイルを検索
 NeoBundle 'Shougo/neomru.vim'
+
+"EMMET
+NeoBundle 'mattn/emmet-vim'
+
+"カラーコードをハイライト
+NeoBundle 'gorodinskiy/vim-coloresque'
+
+" コード自動補完
+NeoBundle 'Shougo/neocomplete.vim'
+
+" カッコの補完
+NeoBundle 'Townk/vim-autoclose'
+
+" Rubyの補完
+NeoBundle 'osyo-manga/vim-monster'
+
+
+
+
+
+
 
 call neobundle#end()
 
