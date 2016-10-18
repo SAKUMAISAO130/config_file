@@ -46,6 +46,8 @@ GIT_PS1_SHOWUPSTREAM=auto
 # alias
 ####################$
 
+alias vi='vim'
+
 alias la='ls -la'
 alias ll='ls -la'
 
